@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark py-1 px-2 mb-5">
+    <a class="navbar-brand" href="{% url 'index' %}">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'article' %}">Article</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'news_view' %}">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'userPanel' %}">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contactPage' %}">ContactUs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin Login</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li> -->
+            <form class="form-inline my-2 my-lg-0 mr-2" method="POST" action="{% url 'search_article' %}">
+                {% csrf_token %}
+                <input class="form-control form-control-sm" type="text" id="search" name="search_text" placeholder="Search">               
+                <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit" name="search"><i class="fa fa-search"></i></button>
+            </form>
+        </ul>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li {% if 'dashboard' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %}>
+                <a class="nav-link" href="{% url 'article' %}">
+                    Welcome {{ user.username }} {Dashboard}</a>
+            </li>
+            <li class="nav-item mr-3">
+                <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout</a>
+                <form action="{% url 'logout' %}" method="POST" id="logout">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register2' %}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="center-align red lighten-3">{{ post.title }}</h1>
+<p class="collection-item">{{ post.body }}</p>
+<mute class="collection-item">{{ post.created_at }}</mute>
+<h1></h1>
+<a href="{% url 'index' %}">Co back</a>
+{% endblock %}

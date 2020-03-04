@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3 mt-5">
+    <div class="card">
+        <div class="card-header p-2">
+            <h3>{{ article.title }}</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ article.body }}</p>
+            <mute class="card-item">{{ article.pub_date }}</mute>
+            <p class="text-primary">{{ article.likes }} people liked this article</p>
+            <p><a class="text-primary" href="{% url 'like_article' article.id %}"><i class="fa-primary fa-sm fa fa-heart"></i> Like</a></p>
+        <!-- </div>
+        <div class="card-footer"> -->
+            <a class="btn btn-info btn-sm py-1 px-2" href="{% url 'edit_article' article.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'delete_article' article.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm" href="{% url 'article' %}">Co back</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header p-2">
+            <h4>Comments</h4>
+        </div>
+        <div class="card-body">
+                {% for item in article.comment_set.all %} 
+                    <h5 class="card-title p-0">{{ item.name }}<em class="float-right font-weight-normal h6">{{ item.pub_date }}</em></h5><hr>
+                    <p class="card-text">{{ item.body }}</p>
+                {% endfor %}
+        </div>
+        <div class="card-footer p-2">
+            <p class="card-title"><a class="btn btn-sm btn-primary" href="{% url 'add_comment' article.id %}">Add comment</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

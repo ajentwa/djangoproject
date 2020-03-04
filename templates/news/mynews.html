@@ -1,0 +1,18 @@
+{% if news %}
+{% for new in news %}
+<div class="col-md-4">
+    <div class="card"> 
+        <div class="card-header bg-primary text-white pt-1 py-0">
+            <h4 class="card-title">{{ new.title }}</h4>
+        </div>
+        <div class="card-body p-2">
+            <em class="card-subtitle text-italic">written by: {{ new.author }}</em>
+            <p class="card-text">{{ new.description|truncatewords:20 }}</p>
+            <a href="#" class="btn btn-outline-primary">Read More</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No news found.</p>
+{% endif %}
